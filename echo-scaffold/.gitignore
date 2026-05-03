@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (if scripts use it)
+node_modules/
+package-lock.json
+
+# Python (if scripts use it)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Claude Code
+.claude/agent-memory/*/MEMORY.md

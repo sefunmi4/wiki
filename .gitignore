@@ -1,0 +1,33 @@
+# OS noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# Obsidian local state — keep config + plugins, exclude per-machine state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/workspaces.json
+.obsidian/cache
+.obsidian/plugins/*/data.json
+
+# Backup files
+*.bak
+*.backup
+punchlist.md.bak
+
+# Stray probe file from the migration (please rm manually)
+.git_init_test_*
+
+# Lock files from agent coordination (local only)
+.lane-lock-*
+docs/.lane-lock-*
+
+# Temp files
+_strategos-memory-pending.md
+_write_test_*
+
+# Large or sensitive content (review before adding back)
+# Uncomment if you decide to exclude:
+# life/*.xlsx
+# life/csv-inbox/

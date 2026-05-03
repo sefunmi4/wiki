@@ -1,0 +1,6 @@
+# Encrypt all wiki content with git-crypt (AES-256-CTR)
+* filter=git-crypt diff=git-crypt
+
+# Exceptions — must remain plaintext for git/git-crypt to function
+.gitattributes !filter !diff
+.gitignore !filter !diff
