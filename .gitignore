@@ -31,3 +31,10 @@ _write_test_*
 # Uncomment if you decide to exclude:
 # life/*.xlsx
 # life/csv-inbox/
+
+# Derived/rebuildable index artifacts (per Wave 8B Principle 2, ratified 2026-05-24)
+# _indexes/ holds PageRank scores, backlink graphs, tag indexes, vector embeddings cache.
+# Rebuild via: python _scripts/indexes/run_all.py
+# The .gitkeep file inside is intentionally tracked to preserve the directory.
+_indexes/*
+!_indexes/.gitkeep
