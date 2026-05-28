@@ -38,3 +38,4 @@ _write_test_*
 # The .gitkeep file inside is intentionally tracked to preserve the directory.
 _indexes/*
 !_indexes/.gitkeep
+sources/_watchdog.log
