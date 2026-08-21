@@ -27,6 +27,10 @@ docs/.lane-lock-*
 _strategos-memory-pending.md
 _write_test_*
 
+# Transient meal-order screenshots — raw input for meal planning, synthesized
+# into life/meal-log/*.md then deleted. Never committed (would bloat history forever).
+life/meal-log/orders/
+
 # Large or sensitive content (review before adding back)
 # Uncomment if you decide to exclude:
 # life/*.xlsx
