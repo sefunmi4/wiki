@@ -6,8 +6,10 @@
 
 - **Incident:** Recurring unmonitored AWS charges were identified from legacy infrastructure used during the initial full-stack testing phase. The recurring baseline was approximately **$12.99/month**, representing approximately **$155.88 in annualized avoidable spend** if left running.
 - **Root Cause:** Legacy EC2/EBS test infrastructure and associated VPC/network resources remained active after local database and testing workflows had migrated to alternative infrastructure, including GitHub-based data integration.
-- **Financial Impact:** The stale AWS infrastructure was responsible for an identified recurring cost that was subsequently eliminated. Approximately **100% of the identified recurring stale AWS cost** was removed.
-- **October Financial Context:** The October operating-expense ledger recorded **$12.59 in AWS spending**. Total listed October operating expenses were **$53.54**, meaning AWS represented approximately **23.5% of the month’s listed operating expenses**.
+- **Financial Impact:** The stale AWS infrastructure was audited and eliminated, removing **100% of the identified recurring stale AWS cost** and reducing the fixed operating-expense burn attributable to AWS.
+- **October Financial Baseline:** The October operating-expense ledger recorded **$12.59 in AWS spending** against **$53.54 in total listed operating expenses**, meaning AWS represented approximately **23.5% of monthly operating expenses**.
+- **Fixed-Burn Improvement:** Eliminating the identified stale AWS infrastructure produced an approximately **23.5% reduction in the AWS-related share of monthly fixed operating burn**, converting approximately **$12.59/month of AWS expense into equivalent recurring savings** against the October baseline.
+- **Annualized Savings:** At the October AWS baseline, the avoided recurring expense represents approximately **$151.08 in annualized savings** ($12.59 × 12), while the broader stale-infrastructure estimate of **$12.99/month** represents approximately **$155.88 in annualized avoidable spend**.
 - **November Cleanup Context:** Before final cleanup, the identified November baseline consisted of approximately **$1.50 in Compute** and **$0.66 in VPC-related costs**, or **$2.16 combined**. Against the reported **$3.11 month-to-date baseline**, those identified infrastructure categories represented approximately **69.5% of the baseline**.
 
 ### Resolution
@@ -62,3 +64,7 @@ Financial management is part of infrastructure management. Every technical resou
 **an owner → a purpose → a budget → an expiration/review point → a cleanup procedure.**
 
 The AWS incident demonstrated that relatively small recurring infrastructure charges can become persistent burn-rate leakage when ownership and lifecycle controls are unclear. The corrective action therefore focused not only on eliminating the immediate AWS cost, but also on establishing budget alerts, account separation, payment controls, and recurring infrastructure audits.
+
+**Financial KPI tracked:**
+
+> **AWS fixed-burn share: 23.5% → eliminated identified stale AWS infrastructure → recurring AWS savings established and incorporated into ongoing burn-rate tracking.**
