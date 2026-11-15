@@ -1,7 +1,7 @@
 # Platform UI/UX Design Specifications (Claude Design System)
 
 ## Overview
-Derived from the latest Claude Design iterations, this document outlines the core panel structures and interactive workflows across the **E-CO**, **Ethos**, **ECHO**, and **Architecture of Homo Sapiens** platforms.
+Derived from the latest Claude Design iterations, this document outlines the core panel structures, brand aesthetic, and interactive workflows across the **E-CO**, **Ethos**, **ECHO**, and **Architecture of Homo Sapiens** platforms.
 
 ## Core Expanded View Panels
 
