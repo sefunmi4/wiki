@@ -34,13 +34,15 @@ Title: Nature, Security & Defense: A Survey of a Unified Research Programme
 Status: Preprint (Nov 2026)
 2. Upcoming Works & Active Manuscripts
 1. ⁠04-luck-mechanics-i.md⁠ / ⁠.tex⁠ (LM 1)
-￼ Status: Active / Preparing for publication. Investigates probability fields and stochastic decision vectors.
+￼ Status: Still needs to be published. Investigates probability fields and stochastic decision vectors.
 2. ⁠05-luck-mechanics-ii.md⁠ / ⁠.tex⁠ (LM 2)
-￼ Status: Active / Preparing for publication. Advanced extension of Luck Mechanics framework.
+￼ Status: Still needs to be published. Advanced extension of Luck Mechanics framework.
 3. ⁠10-wavefunction-computation.md⁠ / ⁠.tex⁠
-￼ Status: Active development. Quantum runtime models and compile-friendly interpreter architectures (⁠quest-rust⁠).
+￼ Status: Still needs to be published. Quantum runtime models and compile-friendly interpreter architectures (⁠quest-rust⁠).
 3. Cross-Disciplinary Research Domains & Experimental Data
-￼ Defense, Sound Engineering & Sonar: Acoustic active noise cancellation and reinforcement learning with sonar for bat drone navigation in complex environments.
-￼ History & Anthropology: Tracing cultural foodways, agricultural migration (e.g., Nigerian cooking lineages and agrarian roots), and systemic societal dynamics.
-￼ Private Equity, Venture Capital & Banking Unions: Quantitative financial fund management models, capital segregation frameworks (Relay Financial sub-accounts), and banking union research backed by clean, well-respected empirical data sources.
-￼ Hugging Face Models & Forecasting: Integration of open-source models, predictive econometric forecasting, and experimental data pipelines for future research validation.
+￼ Business & Personal Finance: Relay Financial subaccounts (Subaccount 9 CSV exports, Subaccount 10 September statements, Subaccount 14 July 2026) and Fidelity/Schwab/HSA/BofA account tracking.
+￼ Defense & Hardware: Arc’teryx tactical backpack design notes, ARM/CPU/GPU armor protection, redundant Git commit backups, and encrypted offline storage.
+￼ Sound Engineering & Research: Studio locations (Lodi, Market St in Paterson NJ, Quad Studios), Virginia Tech alumni ID/studio trip plans, and sonar reinforcement learning for bat drone navigation.
+￼ History & Anthropology: African American foodways, watermelon/seed connections to Nigerian cooking, and Architecture of Homo Sapiens notes.
+￼ Physics & Advanced Research: Preprints and technical reports from Sep 2025 through Sep 2026 (Complex Infinities, Prime Numbers Wavefunction, Guild Economics, Theory of Everything, Cloud Topology/Infrastructure reports), upcoming works (Luck Mechanics I & II, Wavefunction computation), and particle physics/cosmology topics.
+￼ Full-Stack, DevOps & Health Research: Web and systems stack mappings (Ruby on Rails, PHP, Django, .NET, Next.js, Gin, Rust/Swift, Ktor), synthetic vape research, and ECHO task completion memory notes.
