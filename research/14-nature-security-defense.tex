@@ -1,0 +1,866 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue}
+
+\title{Nature, Security \& Defense:\\A Survey of a Unified Research Programme}
+\author{Sefunmi Ashiru\\Architecture of Homo Sapiens LLC}
+\date{November 2026\\Preprint (draft)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper surveys nature, security, and defense as a single research
+programme. It brings together five strands that are usually treated
+separately: nature-inspired defense engineering (biomimicry, bat
+echolocation, swarms, and immune-inspired security); acoustic defense
+and sonar; environmental and ecological security; and verification and
+trust in defense systems (provenance, attestation, and hash anchoring).
+The strands converge on three shared questions: resilience without a
+centre, sensing and verification under noise and deception, and nature
+as both model and stakes. The survey is grounded in cited sources ---
+journal articles, conference papers, and institutional assessments ---
+and grades the evidence by strand rather than blending it. Sources the
+author read in full are marked \emph{verified live}; sources read only
+as search-result text are marked \emph{index} and must be re-checked
+before final citation. A final section records concrete improvements
+the cited research suggests for the development of a software platform
+whose defense and security layer relies on signed commits, provenance
+and SBOMs, and blockchain-anchored publish receipts, labelling each
+transfer \emph{Direct}, \emph{Analogy}, or \emph{Speculative}.
+\end{abstract}
+
+\section{Introduction}
+
+Defense research has long borrowed from nature. Camouflage imitates
+animal coloration; sonar imitates bat echolocation; swarm tactics
+imitate flocking and schooling; intrusion detection imitates the
+immune system. At the same time, nature itself has become a security
+domain: climate change, resource scarcity, and ecosystem loss are now
+treated by NATO, the IPCC, and UNEP as security questions, not only
+environmental ones. And the systems that defend anything --- a drone, a
+supply chain, a software release --- must now \emph{prove} what
+happened, through provenance, attestation, and tamper-evident records.
+
+This paper treats those three facts as one programme rather than three
+fields. Section 2 covers nature-inspired defense engineering;
+Section 3 covers acoustic defense and sonar; Section 4 covers
+environmental and ecological security; Section 5 covers verification
+and trust; Section 6 states what a unified programme would study, its
+open questions, and where the fields disagree; Section 7 records
+implications for software development; Section 8 records limitations
+and what could not be verified.
+
+Two cautions run throughout. First, no source was found that studies a
+unified ``nature, security and defense'' programme as such; the
+synthesis in Section 6 is the author's, built from the strand sources.
+Second, evidence quality is uneven across strands: Sections 3 and 5
+rest on peer-reviewed, replicated results; Section 2 rests heavily on
+reviews, programme reports, and preprints; Section 4 rests on
+institutional assessments rather than experiments.
+
+\section{Nature-Inspired Defense and Security}
+\label{sec:biomimicry}
+
+\subsection{Key findings}
+
+\textbf{Minimal bat sonar works, at short range and low speed.}
+Bats navigate with one emitter and two receivers using broadband
+frequency-modulated (FM) pulses. Yamada et al.\ reproduced this with a
+6.6~g thermophone plus two MEMS microphones (343~g total system),
+achieving about 17~mm ranging resolution by cross-correlation, and
+low-speed two-dimensional obstacle avoidance during autonomous flight
+even when microphone signals were dominated by rotor noise
+(about 94~dB SPL at 0.7~m) \cite{yamada2026}. This is a verified-live
+source.
+
+\textbf{Low-power ultrasound beats vision where vision fails, and
+fails where vision succeeds.} BatDeck (ETH Zurich) achieved
+ego-velocity mean squared error of 0.019~m/s and 8-minute / 136~m
+exploration among transparent and reflective obstacles, using sensors
+drawing under 1~mW. Its own comparison table shows cameras, laser
+time-of-flight, and ultrasound each fail differently, so robustness
+comes from complementing them, not replacing one with another
+\cite{batdeck2024}. This is a verified-live source.
+
+\textbf{Bio-inspired materials are a parallel, more mature strand.}
+Nacre, mantis-shrimp dactyl clubs, cephalopod skin, and armadillo
+shells inspire armour, self-healing, energy dissipation, and adaptive
+camouflage; scalability, cost, and reliability under harsh conditions
+remain the stated bottlenecks \cite{igi2025,armadillo2024}. These are
+index sources.
+
+\textbf{Mimicry is also concealment, deception, and imitation.}
+Matthews and Matthews (2024) trace military camouflage, deception with
+fakes and dummies, and imitation (animals, bioengineering, avian,
+insect, and mammal sonar) toward ``robots, swarms, and avatars'' driven
+by AI \cite{matthews2024}. Index source.
+
+\textbf{Swarm tactics have been demonstrated at scale by DARPA.}
+The OFFSET programme envisioned swarms of up to 250 collaborative
+autonomous air and ground systems for small units in urban areas, with
+a Swarm Tactics Exchange for composing collective behaviours,
+algorithms, and tactics \cite{darpa2020}. Index source.
+
+\textbf{Immune-inspired cybersecurity is a long literature with open
+scalability questions.} The human immune system is invoked for robust,
+self-organised, distributed protection; artificial immune systems (AIS)
+use negative and clonal selection, self/non-self discrimination, and
+immune memory for intrusion detection (notably the LISYS system).
+Reviews conclude substantial potential but call for work on scalability
+and on clonal selection and immune memory \cite{kim2007,bala2025}.
+Index sources.
+
+\subsection{Implications for development}
+\label{sec:biomimicry-dev}
+
+\textbf{Complementary, fail-differently controls --- Analogy, grounded
+in \cite{batdeck2024}.} BatDeck's comparison shows no single sensor is
+robust; the system is robust because sensors fail differently. A
+software platform already has this shape (signed commits, SBOM,
+SAST/secret scanning, anchored receipts). The sourced improvement is to
+\emph{test the combination for correlated failure}: a single compromised
+CI runner or a single signing key that defeats several checks at once is
+the equivalent of a sensor suite sharing one blind spot. Do not add a
+fifth check that shares the same trust root as the existing four.
+
+\textbf{No single point of failure / quorum --- Analogy, grounded in
+\cite{darpa2020} and \cite{swarmmesh2026}.} OFFSET's swarm has no
+central controller whose loss ends the mission; the Swarm-Mesh preprint
+proposes quorum thresholds so no single agent can trigger containment or
+be compromised undetected. Transferred to a platform: require more than
+one independent approval or signature for a publish (for example, author
+signature plus CI builder attestation), and make publish fail if either
+is missing. Speculative as a software claim: no source in this strand
+tests quorum approval for software releases.
+
+\textbf{Self/non-self anomaly detection --- Analogy, grounded in
+\cite{kim2007}.} AIS distinguishes ``self'' from ``non-self'' and
+adapts. For a platform this supports an allowlist model already implicit
+in SBOMs: a release whose dependency set differs from the recorded SBOM
+should be treated as ``non-self'' and fail closed, rather than merely
+warned about. The AIS literature itself warns scalability is unresolved,
+so this should be a deterministic SBOM-diff check, not a learned anomaly
+detector, unless separately validated.
+
+\textbf{Do not over-claim bio-inspiration.} A bio-inspired blockchain
+paper discussed in Section \ref{sec:verification} claims 95.2\%
+anomaly detection in simulation; that is a simulation claim, not a
+field result, and should not be cited as evidence a platform control
+works.
+
+\section{Acoustic Defense and Sonar}
+\label{sec:acoustic}
+
+\subsection{Key findings}
+
+\textbf{Saranga (WPI, \emph{Science Robotics} 2026) is the strongest
+result.} A 16~cm, roughly \$400 palm-sized quadrotor using only 1.2~mW
+of sensing power and onboard computation navigated dense fog, darkness,
+and snow among thin and transparent obstacles, using a dual sonar array.
+It overcame a peak signal-to-noise ratio of $-4.9$~dB with two combined
+fixes: (a) a physical acoustic shield (inspired by bumblebee-bat ear
+cartilage) blocking propeller noise, and (b) a deep neural network
+denoising weak echoes using the long horizon of ultrasound echoes.
+Training generalised via a synthetic-data pipeline plus limited real
+noise data. Across 180 test flights success was 72--100\%; it struggled
+with thin metal poles and slender branches that weakly reflect
+\cite{saranga2026}. Verified live (arXiv abstract).
+
+\textbf{Thermophone FM sonar (Yamada et al.\ 2026) shows the same noise
+problem solved differently:} broadband FM pulses plus
+cross-correlation pulse-compression gain plus thresholding, detecting a
+12~cm pole while hovering under dominant rotor noise
+\cite{yamada2026}. Verified live.
+
+\textbf{Synthetic echolocation (Michigan, Army-funded) trains on
+simulation alone.} Patil et al.\ (2025, \emph{Journal of Sound and
+Vibration} 119229) and Kwon et al.\ (2025, \emph{IEEE Access}) trained
+ensembles of convolutional neural networks --- each network for one
+shape --- entirely on numerically simulated echoes, and classified real
+measured echoes, distinguishing spheres from cylinders despite similar
+curved frontal geometry; low-symmetry cubes head-on were the failure
+case. Funded by the US Army Research Office and DEVCOM Ground Vehicle
+Systems Center \cite{michigan2025}. Index source (University of
+Michigan ARC project listing); the papers themselves were not opened.
+
+\textbf{Hierarchical reinforcement learning is the WPI navigation
+stack.} The NSF-funded Sanket project (from September 2025, \$704,908,
+3 years) uses physics-informed deep learning to interpret ultrasound and
+a hierarchical reinforcement-learning stack to move toward goals while
+avoiding obstacles, fused with IMU and other sensors, for robots under
+100~mm / 100~g, with real-world deployment aimed at 3--5 years
+\cite{wpi2025}. Index source.
+
+\textbf{Active noise cancellation for naval sonar: no strong
+peer-reviewed source was found.} Patent and trade material describes
+active cancellation (anti-phase counter-waves, reference hydrophones,
+adaptive algorithms) for hull, propeller, and torpedo-seeker noise, and
+acoustic cloaking and metamaterials as laboratory proof-of-concept with
+narrow bandwidth. This is a \emph{gap}, not a finding --- the patent
+analysis must not be cited as peer-reviewed evidence. The closest
+peer-reviewed analogue is Saranga's physical shield plus learned
+denoising, above.
+
+\subsection{Implications for development}
+
+\textbf{Two-layer noise handling --- Analogy, grounded in
+\cite{saranga2026}.} Saranga succeeds because it combines a
+\emph{deterministic physical} fix (shield) with a \emph{statistical}
+fix (learned denoising); neither alone sufficed at $-4.9$~dB SNR. For CI
+scanning, the analogue is: deterministic allowlists and baselines that
+suppress known-benign findings (the ``shield'') \emph{plus} a second,
+independent check for what remains --- not two copies of the same
+scanner. Speculative: no source tests this transfer to SAST/secret
+scanning; treat as a design hypothesis, not evidence.
+
+\textbf{Synthetic-data testing of the verifier --- Analogy, grounded in
+\cite{saranga2026,michigan2025}.} Both Saranga and the Michigan work
+generalise by training and testing on synthetic echoes plus limited real
+data. For a platform: generate synthetic tampered artifacts (mutated
+SBOM, re-signed commit, hash-mismatch receipt, swapped dependency) and
+require the verification path to catch them --- that is, test the
+verifier, not just the happy path. This is a direct methodological
+transfer, but the \emph{effectiveness} of synthetic testing for software
+verification is not established by these papers.
+
+\textbf{Hierarchical checks (cheap local to expensive anchored) ---
+Speculative, loosely grounded in \cite{wpi2025}.} WPI's hierarchical
+reinforcement learning does fast local avoidance before higher-level
+goal navigation. Analogously: run cheap local verification (recompute
+hash, check signature) on every publish, and reserve expensive anchored
+verification (on-chain receipt lookup, full SBOM diff) for
+releases and promotion gates. Flagged as speculative: the source does
+not discuss verification hierarchies.
+
+\textbf{What this strand does \emph{not} support:} active noise
+cancellation as a software pattern. Do not claim ``active noise
+cancellation'' as a sourced platform technique; the sourced techniques
+are physical shielding, cross-correlation and thresholding, and learned
+denoising.
+
+\section{Environmental and Ecological Security}
+\label{sec:ecological}
+
+\subsection{Key findings}
+
+\textbf{Climate change is a threat multiplier, not a direct cause of
+war --- the consensus position.} IPCC AR6 WGII (2022) finds climate
+extremes are not directly causing new conflicts in large statistical
+studies; they prolong and increase the severity and frequency of ongoing
+violent conflicts, with a small but persistent signal, stronger where
+livelihoods depend on climate-sensitive agriculture and livestock and
+governance is weak. Higher warming increases conflict risk via food and
+livelihood insecurity \cite{ipcc2022,newsecuritybeat}. Index sources.
+
+\textbf{NATO has institutionalised this.} Its 2021 Climate Change and
+Security Action Plan calls climate change ``one of the defining
+challenges of our times'' and ``a threat multiplier'', and commits to
+four pillars: an annual Climate Change and Security Impact Assessment
+(awareness); adaptation into resilience, defence planning, capability
+delivery, standards, procurement, and training; mitigation via a
+greenhouse-gas-emissions mapping methodology for military activities;
+and outreach \cite{nato2021}. Verified live. NATO's topic page adds
+environmental security (extreme weather, sea-level rise, resource
+depletion, land degradation, pollution leading to humanitarian disasters,
+regional tensions, and violence), the Science for Peace and Security
+programme (since 1969), Trust Funds for demilitarisation and demining,
+and a Code of Conduct for active sonar to protect marine mammals,
+developed after CMRE research on sonar effects \cite{nato-topic}.
+Verified live.
+
+\textbf{Natural resources are central to conflict and to
+peacebuilding.} UNEP (2009): 40\% of intrastate conflicts in the past
+60 years were strongly linked to natural resources; such conflicts are
+twice as likely to relapse within five years; fewer than a quarter of
+peace agreements address natural-resource issues \cite{unep2009}. Index
+source. UNEP (2024), from 40 case studies, finds nature-based solutions
+(protect, conserve, restore, and sustainably use natural resources) are
+``uniquely placed to address underlying conflict drivers'', while
+conflict itself directly threatens such projects, and inequality,
+economic incentives, and migration must be addressed \cite{unep2024}.
+Index source.
+
+\textbf{Protection of nature is itself a security task.} NATO's sonar
+code of conduct is a concrete case of a defence capability being
+constrained to protect a natural system; UNEP's ``Greening the Blue
+Helmets'' work applies the same logic to peacekeeping's own
+environmental footprint \cite{nato-topic,unep2009}.
+
+\subsection{Implications for development}
+
+\textbf{Threat-multiplier risk framing --- Analogy, grounded in
+\cite{ipcc2022,nato2021}.} IPCC and NATO insist a stressor rarely
+\emph{causes} failure alone; it amplifies existing fragility. For a
+platform: treat a vulnerable dependency, a leaked secret, or an unsigned
+commit not as an isolated CVE to patch but as a multiplier on existing
+weaknesses (for example, a vulnerable crate matters far more if the same
+build can publish without a second signature). Prioritise fixes by
+\emph{interaction} with existing fragility, not by severity score alone.
+Analogy, not a sourced software method.
+
+\textbf{Annual / per-release impact assessment --- Analogy, grounded in
+\cite{nato2021}.} NATO conducts an \emph{annual} Climate Change and
+Security Impact Assessment and integrates it into risk and resilience
+assessments and procurement. Analogously: a scheduled, recorded
+security-impact assessment per release (SBOM diff plus new dependencies
+plus changed attestations), stored alongside the anchored receipt, rather
+than ad-hoc review. This is a process transfer; no source tests it for
+software.
+
+\textbf{Address underlying drivers, not only symptoms --- Analogy,
+grounded in \cite{unep2024}.} UNEP's lesson is that nature-based
+solutions work when they address underlying conflict drivers
+(inequality, incentives, livelihoods). For a platform: the analogue of
+``underlying drivers'' is dependency hygiene and build hygiene (pinning,
+minimal dependencies, reproducible builds) rather than adding another
+scanner on top of an undisciplined supply chain. Speculative as a causal
+claim.
+
+\textbf{Minimise collateral / data minimisation --- Direct-ish, grounded
+in \cite{nato-topic} and Section \ref{sec:verification}.} NATO
+constrained active sonar to protect marine mammals; the verification
+literature (Section \ref{sec:verification}) likewise holds that only a
+hash should leave the machine. For a platform: publish only
+digests and commitments, keep SBOMs and provenance evidence locally, and
+treat any collection of source or user data in a receipt as collateral
+to be avoided. This is supported by the anchoring sources in
+Section \ref{sec:verification}, not by the ecological sources alone.
+
+\section{Verification and Trust in Defense Systems}
+\label{sec:verification}
+
+\subsection{Key findings}
+
+\textbf{SLSA gives the normative build-provenance ladder.}
+Specification v1.2, Build track: L1 provenance exists; L2 signed and
+authentic provenance from a hosted build service; L3 unforgeable
+provenance plus isolated and ephemeral builds. The producer must choose
+a capable platform, follow a consistent build, and distribute
+provenance. Provenance must identify the output by cryptographic digest.
+Critically: at L2 provenance \emph{must} be generated by the control
+plane, not by a tenant or build step, and the signing key must be
+accessible only to the build service --- not to user-defined build
+steps; at L3 every field is generated and verified in the trusted
+control plane, external parameters are fully enumerated, and
+cross-build and cache-poisoning influence is prohibited. Transparency
+logs or timestamping are recommended for key-compromise detection
+\cite{slsa}. Verified live.
+
+\textbf{Hash anchoring proves a narrow thing.} Committing a hash (or a
+Merkle root of many hashes) to a public chain proves the exact bytes
+existed at or before the block time and have not changed since;
+verification needs only the document, a small proof file, and public
+chain data. It does \textbf{not} prove authorship, accuracy,
+exclusivity (ten contradictory drafts can be anchored), legal execution,
+or precise time (hour-level for Bitcoin) \cite{filigrane2026}. Verified
+live. Haber and Stornetta (1991) hash-chaining predates blockchains;
+OpenTimestamps aggregates unbounded digests into one Bitcoin
+transaction, so individual timestamps are effectively free.
+
+\textbf{The correct pattern is: anchor roots, keep proofs, verify on a
+schedule, combine instruments.} Filigrane's field notes: anchor Merkle
+roots not raw hashes (privacy amplification, batching); automate
+\texttt{.ots} proof upgrade after confirmation; store proofs with the
+documents; verify on a schedule (re-hash, walk the Merkle path, check
+the block header); plan for algorithm ageing (SHA-1 was retired);
+combine signature (origin) plus qualified TSA token (legal time) plus
+chain anchor (independent longevity) \cite{filigrane2026}. Verified live.
+
+\textbf{A worked defence-supply-chain analogue exists (vendor white
+paper).} Sovereign Proof's Sentinel gives every serialized asset a
+signed, hash-chained custody biography (Ed25519, SHA-256, genesis
+value), a fleet Merkle root, and a single 32-byte commitment anchored to
+Bitcoin via OpenTimestamps, while all custody evidence stays inside the
+operator's facility. Its principles: determinism over judgment (an LLM
+narrates evidence, never computes a score); evidence stays home;
+tamper-evidence over tamper-prevention; fail closed (a missing
+attestation library is an error, never a silent downgrade to software);
+no token. Mutating a record breaks that record while the rest verifies;
+the fleet root then diverges from the anchor. Silicon binding uses TPM
+2.0 quotes / DICE / SPDM over a challenge nonce; a quote from the wrong
+key is a fatal mismatch. It maps evidence to DFARS 252.246-7007/-7008
+and NDAA FY2023 \S5949 \cite{sovereign2026}. Verified live; vendor white
+paper, not peer-reviewed.
+
+\textbf{Hardware attestation is the same pattern at the firmware
+layer.} NIST SP 800-193 (2018) organises platform firmware resiliency
+as Protection / Detection / Recovery. Secured boot only lets
+authenticated firmware execute, starting from a hardware root of trust;
+measured boot records hashes into TPM PCRs so a remote verifier can
+compare them to golden measurements (remote attestation)
+\cite{nist800193}. Index source (secondary summaries); the SLSA
+specification should be the primary citation for provenance.
+
+\textbf{Sigstore / in-toto / Rekor complete the software stack.}
+Sigstore issues short-lived (about 10 minute) certificates bound to an
+OIDC identity (Fulcio), signs with Cosign, and logs every signing event
+in Rekor, an append-only Merkle transparency log. in-toto defines a
+\emph{layout} (authorised steps, keys, and rules) plus signed
+\emph{links} recording hashes of each step's inputs and outputs, so
+verification checks an unbroken signed chain from named source to
+artifact. SBOM formats are SPDX (ISO/IEC 5962) and CycloneDX (OWASP)
+\cite{sigstore-guide}. Index, secondary sources; verify against
+sigstore.dev and in-toto.io before final use.
+
+\textbf{Tamper-evidence is explicitly not tamper-prevention, and cannot
+defeat a fully compromised signer.} STAMP (molecular provenance
+preprint) states this plainly: it does not claim to defeat jailbroken
+synthesizers --- that is irreducible --- it is a cost imposer and
+evidence generator that converts attacks into forensically suspicious
+artifacts or supply-chain-visible events \cite{stamp}. Index source;
+preprint, authors not captured.
+
+\subsection{Implications for development --- mostly Direct}
+
+These map onto a platform's existing controls (signed commits, verified
+author identity, provenance plus SBOMs, SAST/secret scanning,
+blockchain-anchored receipts) and are the most actionable part of this
+survey.
+
+\textbf{Generate provenance in the control plane, not in the build ---
+Direct, \cite{slsa}.} SLSA L2/L3 require the provenance generator to be
+the build platform itself, with the signing key inaccessible to
+user-defined build steps. \emph{Improvement:} the platform's
+provenance and SBOM attestation must be emitted by the CI control plane
+(for example, GitHub Actions or the release service), never by
+application code or a build script that a compromised dependency could
+influence. If a build step can write its own provenance, the control is
+L1 at best.
+
+\textbf{Aim explicitly at SLSA Build L2, then L3 --- Direct,
+\cite{slsa}.} L2 is a hosted build plus signed provenance; L3 is
+isolated and ephemeral builds plus unforgeable provenance plus no
+cache-poisoning or cross-build influence. \emph{Improvement:} state the
+target level in the platform's security documentation, and treat
+``builds on a developer laptop'' and ``shared, non-ephemeral runners
+with a persistent cache'' as explicit L2/L3 failures.
+
+\textbf{Anchor Merkle roots, not raw artifact hashes --- Direct,
+\cite{filigrane2026,sovereign2026}.} Both Filigrane and Sovereign Proof
+anchor a single root (fleet or root commitment) rather than one
+transaction per document. \emph{Improvement:} anchor one Merkle root
+per release covering the artifact hash plus SBOM hash plus provenance
+hash plus commit hash, and keep the per-artifact proof (Merkle path)
+with the release. This gives privacy amplification (an observer cannot
+count documents), negligible marginal cost, and a single batching point.
+
+\textbf{Keep the proof, upgrade it, verify on a schedule --- Direct,
+\cite{filigrane2026}.} An OpenTimestamps-style receipt starts
+incomplete and must be upgraded after confirmation; a lost proof is a
+lost timestamp even though the anchor is permanent. \emph{Improvement:}
+automate proof upgrade and retention with the artifact, and run
+scheduled re-verification (recompute hash, walk Merkle path, check
+block header) --- evidence nobody has ever verified tends to fail the
+first time it matters \cite{filigrane2026}.
+
+\textbf{Do not let the receipt claim what it cannot prove --- Direct,
+\cite{filigrane2026,stamp}.} An anchor proves existence plus integrity
+at a coarse time only. It does not prove authorship, accuracy,
+exclusivity, or precise time. \emph{Improvement:} the platform's
+``verified by recomputing the hash'' check must be presented as
+existence and integrity only. Authorship needs the signed commit plus
+verified author identity (separate signature); uniqueness and sequence
+need an append-only log (cf.\ Rekor, \cite{sigstore-guide}), not just an
+anchor; precise time needs an RFC 3161 TSA token if it matters. A false
+statement anchored on-chain is a false statement with a verifiable date
+\cite{filigrane2026}.
+
+\textbf{Fail closed, never silently downgrade --- Direct,
+\cite{sovereign2026,nist800193}.} Sovereign Proof: a missing
+attestation library is an error, never a silent downgrade to software; a
+key that cannot decrypt the keystore refuses to mint keys. NIST SP
+800-193: detection plus recovery, not just protection.
+\emph{Improvement:} if signature verification, SBOM generation, or
+receipt verification is unavailable, the publish or deploy must fail ---
+not proceed unsigned. Log the failure as a finding, not a warning.
+
+\textbf{Deterministic scoring; evidence stays home --- Direct,
+\cite{sovereign2026}.} Trust must be computed by published,
+reproducible rules, never by a model's opinion; only a 32-byte
+commitment leaves the facility. \emph{Improvement:} the platform's
+verification verdict should be a deterministic function of signatures
+plus hashes plus log inclusion (reproducible by any verifier from public
+data), and SBOM and provenance content should not be published on-chain
+--- only its digest or root.
+
+\textbf{Bind identity to silicon or key, with a challenge nonce ---
+Direct, \cite{sovereign2026,nist800193}.} TPM quotes over a fresh
+nonce, verified against the key the device was born with.
+\emph{Improvement (for the mobile and server components):} where a
+device or build runner holds a key, verify a fresh challenge and
+response at publish time rather than accepting a stored ``I am
+authorised'' claim; a quote from the wrong key is a fatal mismatch, not
+a warning.
+
+\textbf{State honest limitations --- Direct,
+\cite{sovereign2026,stamp}.} Sovereign Proof and STAMP both publish a
+limitations section (hardware backends are roadmap, not shipped;
+jailbroken signers are irreducible). \emph{Improvement:} the platform
+should document what its receipts do \emph{not} defeat --- for example,
+a compromised signing key, a compromised CI control plane, or a
+malicious authorised author --- and what would make such an attack
+visible (transparency log, anchor divergence).
+
+\section{How the Strands Connect}
+\label{sec:connection}
+
+\subsection{What a unified programme would study}
+
+The strands converge on three shared questions, each visible in the
+sources above.
+
+\textbf{1. Resilience without a centre.} How do systems survive the
+loss of components? Bats navigate with a minimal sensor set; swarms
+(OFFSET) and quorum systems (Swarm-Mesh) survive node loss; immune
+systems are distributed and self-organised; SLSA, Rekor, and
+hash-anchoring survive the loss of any single vendor because
+verification needs only public data. The programme's core hypothesis ---
+\emph{redundancy plus local rules plus verifiable evidence beats a
+single hardened centre} --- is the common thread, but it is a
+hypothesis, not a proven theorem across domains.
+
+\textbf{2. Sensing and verification under noise and deception.}
+Ultrasound at $-4.9$~dB SNR, climate signals inside noisy conflict
+statistics, and tampered provenance inside a noisy supply chain are the
+same epistemic problem: extracting a trustworthy signal when the channel
+is degraded and the adversary may be active. Saranga's two-layer answer
+(deterministic shield plus statistical denoising) and SLSA's answer
+(control-plane provenance plus transparency log) are domain-specific
+instances of the same pattern.
+
+\textbf{3. Nature as both model and stakes.} Nature supplies the design
+(echolocation, swarm, immunity) \emph{and} is the thing being defended
+(marine mammals versus sonar, ecosystems versus climate-driven conflict,
+resources versus war). NATO's sonar code of conduct is the clearest
+institutional example of holding both roles at once.
+
+\subsection{Open questions}
+
+\begin{itemize}
+\item \textbf{What is the right level of bio-fidelity?} Yamada et al.\
+note a ``fundamental gap between biological and artificial airborne
+sonar'' --- bats adjust pulse intensity, time--frequency structure, and
+beam width dynamically; current drones do not, and fly at 0.4~m/s. Is
+closer imitation the path, or is the bat a proof that minimal
+architectures suffice?
+\item \textbf{Can immune and swarm ideas scale to real software
+systems?} AIS reviews (2007, 2025) still list scalability, clonal
+selection, and immune memory as open; the bio-inspired blockchain
+paper's 95.2\% / 15.2~ms figures are simulation claims. No source in
+this survey demonstrates a fielded AIS or swarm-immune system at
+production scale.
+\item \textbf{Does anchoring scale as a social institution, not just a
+cryptographic one?} OpenTimestamps can anchor billions of hashes
+cheaply, but the Filigrane analysis shows the binding constraints are
+proof custody, algorithm ageing, legal standing (eIDAS qualified
+timestamps versus admissible-but-unprivileged anchors), and whether
+anyone actually verifies on a schedule.
+\item \textbf{Who decides when ``nature-inspired'' becomes
+``nature-militarised''?} See disagreements below.
+\item \textbf{Can ecological security be operationalised without
+securitising nature?} NATO's annual assessment and UNEP's nature-based
+solutions both assume institutions can measure and act; neither source
+resolves how to do so without turning ecosystems into military assets.
+\end{itemize}
+
+\subsection{Disagreements and gaps}
+
+\textbf{Climate determinism versus threat multiplier.} The IPCC/NATO
+consensus (threat multiplier, weak average effect at present) is
+contested by more deterministic readings in popular and some policy
+literature, and by a 2026 GMACCC paper framing climate change as ``the
+primary threat to global peace and security'' --- a framing the IPCC's
+own assessment does not support in that strong form. A paper must not
+present determinism as the IPCC position.
+
+\textbf{Militarised biomimicry.} Matthews and Matthews treat mimicry
+as continuous with deception and imitation in war; critical scholarship
+(for example, Foster and Clapper, ``Swim, Swarm, Strike'', conference
+paper \cite{foster2026}) argues biomimetic drones recast nature as a
+terrain of permanent counterinsurgency. This is a normative
+disagreement, not an empirical one, and a unified programme must address
+it rather than assume biomimicry is neutral.
+
+\textbf{Tamper-evidence versus tamper-prevention.} SLSA, Sovereign
+Proof, and STAMP all insist tamper-evidence is not prevention; a system
+that presents anchored receipts as \emph{preventing} tampering
+over-claims. The disagreement in the literature is about how much
+deterrence evidence actually provides when the attacker controls the
+signer.
+
+\textbf{Evidence quality is uneven across strands.} Sections 3 and 5
+have peer-reviewed, replicated results; Section 2's swarm and immune
+claims rest heavily on reviews, DARPA programme reports, and preprints;
+Section 4's strongest claims are institutional assessments, not
+experiments. A unified paper should grade evidence by strand, not blend
+them.
+
+\textbf{Gaps found in this survey (not in the sources):} (a) no
+peer-reviewed source on active noise cancellation for sonar was located
+--- only patent and trade material; (b) no source directly studies a
+unified ``nature, security and defense'' programme --- the synthesis in
+this section is the author's, built from the strand sources; (c) no
+source was found that tests bio-inspired patterns (swarm, immune) as
+\emph{software supply-chain} controls --- all platform transfers in
+Sections \ref{sec:biomimicry}--\ref{sec:ecological} are analogies and
+are labelled as such.
+
+\section{Development Improvements at a Glance}
+\label{sec:at-a-glance}
+
+Table \ref{tab:glance} summarises the strongest platform-relevant
+takeaway from each strand and its status. Only the verification strand
+(Section \ref{sec:verification}) yields improvements stated directly by
+its sources; the others are analogies, and are labelled as such.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Strand & Strongest platform-relevant takeaway & Status \\
+\midrule
+1. Biomimicry & Complementary, fail-differently checks; & Analogy, grounded \\
+& no single point of failure; quorum / & in BatDeck + OFFSET \\
+& multi-party approval & \\
+2. Acoustic / sonar & Two-layer noise handling (deterministic & Analogy / \\
+& shield + statistical denoising); & Speculative \\
+& synthetic-data testing of the verifier; & \\
+& hierarchical (cheap local to expensive & \\
+& anchored) checks & \\
+3. Ecological security & Threat-multiplier risk framing; annual & Analogy \\
+& impact assessment; address root-cause & \\
+& drivers; minimise collateral / & \\
+& data minimisation & \\
+4. Verification & SLSA L2/L3 control-plane provenance; & \textbf{Direct} \\
+& key must not be reachable by build steps; & \\
+& anchor Merkle roots, not raw hashes; & \\
+& verify on a schedule; fail closed; & \\
+& anchor does not prove authorship & \\
+5. Connection & Deterministic, reproducible trust & \textbf{Direct} \\
+& scoring; evidence stays home, only a & (Sovereign Proof \\
+& 32-byte commitment leaves; & pattern) \\
+& tamper-evidence over tamper-prevention & \\
+\bottomrule
+\end{tabular}
+\caption{Platform improvements at a glance. ``Direct'' means the source
+states the pattern and it maps onto the platform's existing controls;
+``Analogy'' means the pattern is in the source and the transfer to
+software is an inference; ``Speculative'' means a plausible transfer
+with no source support for the software application.}
+\label{tab:glance}
+\end{table}
+
+\section{Limitations and What Could Not Be Verified}
+\label{sec:limitations}
+
+\begin{itemize}
+\item \textbf{Active noise cancellation (sonar):} no peer-reviewed
+source located; only patent and trade summaries. Do not cite ANC as an
+established peer-reviewed sonar technique without further research.
+\item \textbf{Michigan echolocation paper details:} authors, volume and
+pages, and DOI for Patil et al.\ \emph{Journal of Sound and Vibration}
+119229 and Kwon et al.\ \emph{IEEE Access} (2025) are taken from the
+University of Michigan ARC project listing (index); the papers
+themselves were not opened. Verify before final bibliography.
+\item \textbf{MDPI bio-inspired blockchain authors:} the abstract page
+as opened did not display author names in the extracted text; do not
+add authors without re-checking.
+\item \textbf{NIST SP 800-193 and Sigstore/in-toto specifics:} read via
+secondary summaries (index). The SLSA specification itself was verified
+live and should be the primary citation for provenance; Sigstore and
+Rekor details should be verified against sigstore.dev and in-toto.io
+before final use.
+\item \textbf{No source was found for a unified ``nature, security and
+defense'' programme as such.} Section \ref{sec:connection}'s synthesis
+is an original synthesis from the strand sources, not a sourced claim.
+\item \textbf{Platform transfers in Sections
+\ref{sec:biomimicry}--\ref{sec:ecological} are analogies.} Only
+Section \ref{sec:verification}'s improvements are directly stated by
+their sources. The labels must not be removed in the final paper.
+\item \textbf{STAMP authors and year:} not captured from the manuscript
+PDF as opened; cite by title only until verified.
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+\bibitem{yamada2026} Yamada, Y., Hasegawa, K., Watabe, Y., Sasaki, S.,
+Asada, T. \& Hiryu, S. (2026). ``A thermophone based FM sonar for
+airborne ultrasonic sensing under drone flight noise.''
+\emph{Scientific Reports} 16:26651. DOI: 10.1038/s41598-026-65909-3.
+\url{https://www.nature.com/articles/s41598-026-65909-3.pdf} ---
+verified live.
+
+\bibitem{saranga2026} Velmurugan, M., Brush, P., Balfour, C., Przybyla,
+R.~J. \& Sanket, N.~J. (2026). ``Milliwatt ultrasound for navigation in
+visually degraded environments on palm-sized aerial robots.''
+\emph{Science Robotics} 11(112), eadz9609. DOI:
+10.1126/scirobotics.adz9609.
+\url{https://arxiv.org/abs/2603.24699v1} --- verified live (arXiv
+abstract).
+
+\bibitem{batdeck2024} M\"uller, H., Kartsch, V., Magno, M. \& Benini,
+L. (2024). ``BatDeck --- Ultra Low-power Ultrasonic Ego-velocity
+Estimation and Obstacle Avoidance on Nano-drones.''
+arXiv:2412.10048v1.
+\url{https://arxiv.org/html/2412.10048v1} --- verified live. Earlier
+version: arXiv:2403.16696v1.
+
+\bibitem{michigan2025} Patil, G.~U., Kwon, H.~S., Epureanu, B.~I. \&
+Popa, B.~I. (2025). ``Synthetically-trained neural networks for shape
+classification from measured acoustic scattering.'' \emph{Journal of
+Sound and Vibration}, 119229. Kwon, H.~S., Patil, G.~U., Epureanu,
+B.~I. \& Popa, B.~I. (2025). ``Specialized Convolutional Neural Network
+Models for Echolocation-Based Perception.'' \emph{IEEE Access}. As
+listed at
+\url{https://arc.engin.umich.edu/research/projects/perception-in-complex-scenes-using-automatically-labeled-sonar-imaging-data-in-synthetic-environments/}
+--- index.
+
+\bibitem{wpi2025} Worcester Polytechnic Institute / Sanket, N.~J. NSF
+project on bat-inspired echolocation drones (2025--). Reported at
+\url{https://i-hls.com/archives/132067} and
+\url{https://fixedd.co.uk/bats-inspire-wpi-researchers-to-develop-drones-using-echolocation/}
+--- index. Hierarchical reinforcement learning plus physics-informed
+deep learning; under 100~mm / 100~g.
+
+\bibitem{matthews2024} Matthews, R. \& Matthews, T. (2024). ``Military
+mimicry: the art of concealment, deception, and imitation.''
+\emph{Defence and Security Analysis}. DOI:
+10.1080/14751798.2024.2352271.
+\url{https://research.birmingham.ac.uk/en/publications/military-mimicry-the-art-of-concealment-deception-and-imitation/}
+--- index.
+
+\bibitem{igi2025} ``Innovation of Bio-Inspired Materials for
+Next-Generation Defense Applications.'' (2025). IGI Global, ch.~5. DOI:
+10.4018/979-8-3373-0933-0.ch005.
+\url{https://www.igi-global.com/viewtitlesample.aspx?id=382059&ptid=361704&t=Innovation+of+Bio-Inspired+Materials+for+Next-Generation+Defense+Applications}
+--- index. Nacre, mantis shrimp, cephalopod camouflage, self-healing.
+
+\bibitem{armadillo2024} ``Biomimetic design and impact simulation of
+Al2O3/Al composite armor based on armadillo shell.'' \emph{Scientific
+Reports} (2024).
+\url{https://www.nature.com/articles/s41598-024-71255-z} --- index.
+Armadillo carapace plus triply periodic minimal surfaces; simulation
+only, ballistic performance not yet experimentally proven for the TPMS
+variant.
+
+\bibitem{darpa2020} DARPA (2020). ``OFFSET Swarm Systems Integrators
+Demonstrate Tactics to Conduct Urban Raid.''
+\url{https://www.darpa.mil/news/2020/offset-swarm-urban-raid} --- index.
+250-system swarms, urban raid field experiment, Camp Shelby.
+
+\bibitem{kim2007} Kim, J., Bentley, P.~J., Aickelin, U., Greensmith,
+J., Tedesco, G. \& Twycross, J. (2007). ``Immune system approaches to
+intrusion detection --- a review.'' \emph{Natural Computing} 6:413--466.
+DOI: 10.1007/s11047-006-9026-4.
+\url{https://staff.fmi.uvt.ro/~daniela.zaharie/ma2017/projects/applications/intrusion_detection_systems/AIS%2BIDS/AIS_intrusion_detection.pdf}
+--- index.
+
+\bibitem{bala2025} Bala, A. \& El Bhiri, B. (2025). ``A Comparative
+Analysis of Immunity-Inspired Cybersecurity Approaches.''
+\emph{Engineering Proceedings} 112, 73. DOI:
+10.3390/engproc2025112073.
+\url{https://mdpi-res.com/d_attachment/engproc/engproc-112-00073/article_deploy/engproc-112-00073.pdf?version=1764318708}
+--- index.
+
+\bibitem{swarmmesh2026} Rolle, J.~S. (2026). ``Swarm-Mesh: A
+Decentralized Bio-Inspired System for AI Containment.'' Zenodo preprint,
+DOI: 10.5281/zenodo.21200799.
+\url{https://zenodo.org/records/21200799/files/SwarmMesh_AI_Containment_Preprint_2026-07-04.pdf}
+--- index; independent preprint, not peer-reviewed. Quorum-sensing,
+resilient consensus, no single point of failure.
+
+\bibitem{mdpi-bioblockchain} ``Bioinspired Blockchain Framework for
+Secure and Scalable Wireless Sensor Network Integration in Fog--Cloud
+Ecosystems.'' (2024). \emph{Sensors} / MDPI, 14(1):3.
+\url{https://www.mdpi.com/2073-431X/14/1/3} --- verified live
+(abstract). Authors not captured; do not cite author names. AIS plus
+Proof of Adaptive Immunity Consensus; claimed 95.2\% anomaly detection,
+500 nodes.
+
+\bibitem{ipcc2022} IPCC (2022). \emph{Climate Change 2022: Impacts,
+Adaptation and Vulnerability.} Contribution of Working Group II to the
+Sixth Assessment Report. \url{https://www.ipcc.ch/report/ar6/wg2/} ---
+index (cited via secondary summaries).
+
+\bibitem{newsecuritybeat} New Security Beat. ``What Next for Climate
+Security? Implications From IPCC Working Group II 6th Assessment
+Report.''
+\url{https://WWW.NEWSECURITYBEAT.ORG/?p=119047} --- index. Also:
+\emph{Climatic Change} (2025) 178:125, DOI: 10.1007/s10584-025-03970-z,
+\url{https://cdn.cloud.prio.org/files/fdd4e7ad-ad28-4f4b-acc2-ad7d1073606b/s10584-025-03970-z.pdf?inline=true}
+--- scientific uptake in UNSC debates 2007--2022; AR6 average climate
+effect on conflict judged weak at present, more prominent with
+additional warming.
+
+\bibitem{nato2021} NATO (2021). ``NATO Climate Change and Security
+Action Plan.'' 14 June 2021.
+\url{https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2021/06/14/nato-climate-change-and-security-action-plan}
+--- verified live.
+
+\bibitem{nato-topic} NATO. ``Environment, climate change and
+security.''
+\url{https://nato.int/en/what-we-do/wider-activities/environment-climate-change-and-security}
+--- verified live.
+
+\bibitem{unep2009} United Nations Environment Programme (2009).
+\emph{From Conflict to Peacebuilding: The Role of Natural Resources and
+the Environment.} ISBN 978-92-807-2957-3.
+\url{https://preview-www.cbd.int/financial/doc/unep-conflict.pdf} ---
+index.
+
+\bibitem{unep2024} United Nations Environment Programme (2024).
+\emph{Nature-based Solutions for Peace: Emerging practice and options
+for policymakers.} Nairobi. ISBN 978-92-807-4204-6.
+\url{https://wedocs.unep.org/bitstreams/f4db3bd7-e326-481d-af02-4ea887583ff4/download}
+--- index.
+
+\bibitem{slsa} SLSA. ``Build: Requirements for producing artifacts.''
+Specification v1.2.
+\url{https://slsa.dev/spec/v1.2/build-requirements} --- verified live.
+
+\bibitem{filigrane2026} Filigrane (2026-07-15). ``Blockchain
+Notarization: When Anchoring Hashes Makes Sense.''
+\url{https://www.filigrane.com/blockchain-notarization} --- verified
+live.
+
+\bibitem{sovereign2026} Bardwell-Scott, M. (2026). ``A Cryptographically
+Signed Biography for Physical Hardware: Tamper-evident chain of custody
+for the AI and critical-infrastructure supply chain.'' Sovereign Proof
+Technical White Paper v1.3, October 2026.
+\url{https://sovereignproof.io/sovereign-proof-whitepaper.pdf} ---
+verified live; vendor white paper, not peer-reviewed.
+
+\bibitem{nist800193} Regenscheid, A. (NIST) (2018). \emph{Platform
+Firmware Resiliency Guidelines.} NIST SP 800-193, Final, May 2018.
+Summarised at
+\url{https://www.electronicdesign.com/technologies/industrial/article/55367149/infineon-technologies-secure-tomorrows-data-centers-with-platform-firmware-resiliency}
+and
+\url{https://softwsp.com/guides/nist-sp-800-193-platform-firmware-resiliency/}
+--- index.
+
+\bibitem{sigstore-guide} Sigstore / SLSA / in-toto secondary guides
+(index, use primary specs for citation):
+\url{https://dev.to/kamal_namdeo/slsa-sigstore-and-provenance-complete-practical-guide-1bl5} ;
+\url{https://blog.michaelsam94.com/supply-chain-security-slsa-sbom/} ;
+\url{https://hld.handbook.academy/curriculum/security-at-scale/supply-chain-security/}
+--- index.
+
+\bibitem{stamp} STAMP: ``Synthesis Tamper-evident Attestation and
+Molecular Provenance (STAMP): Cryptographic Molecular Barcoding for DNA
+Synthesizers.'' Manuscript PDF.
+\url{https://framerforms.s3.us-east-1.amazonaws.com/form-uploads/761ee2a5-94a2-4849-b65f-14b43cabbc10-stamp-cryptographic-molecular-barcoding.pdf}
+--- index; preprint, authors not captured.
+
+\bibitem{foster2026} Foster, D. \& Clapper, A. ``Swim, Swarm, Strike:
+Biomimetic War Machines and the Cyborg Ecologies of Perpetual
+Counterinsurgency.'' Conference paper.
+\url{https://nomadit.co.uk/conference/pollen2026/paper/94200} --- index.
+
+\end{thebibliography}
+
+\end{document}

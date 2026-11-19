@@ -28,6 +28,10 @@ Cloud Infrastructure & DevOps Systems
 4. ⁠09-manifest-derived-capacity-measurement.md⁠ / ⁠.tex⁠
 ￼ Title: Manifest-Derived Capacity Measurement and Semantic-Preservation Constraints in Cloud Topology Selection
 ￼ Status: Published Preprint (Sep 2026)
+Nature, Security & Defense
+1. 14-nature-security-defense.md / .tex
+Title: Nature, Security & Defense: A Survey of a Unified Research Programme
+Status: Preprint (Nov 2026)
 2. Upcoming Works & Active Manuscripts
 1. ⁠04-luck-mechanics-i.md⁠ / ⁠.tex⁠ (LM 1)
 ￼ Status: Active / Preparing for publication. Investigates probability fields and stochastic decision vectors.
