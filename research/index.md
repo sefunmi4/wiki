@@ -46,3 +46,5 @@ Status: Preprint (Nov 2026)
 ￼ History & Anthropology: African American foodways, watermelon/seed connections to Nigerian cooking, and Architecture of Homo Sapiens notes.
 ￼ Physics & Advanced Research: Preprints and technical reports from Sep 2025 through Sep 2026 (Complex Infinities, Prime Numbers Wavefunction, Guild Economics, Theory of Everything, Cloud Topology/Infrastructure reports), upcoming works (Luck Mechanics I & II, Wavefunction computation), and particle physics/cosmology topics.
 ￼ Full-Stack, DevOps & Health Research: Web and systems stack mappings (Ruby on Rails, PHP, Django, .NET, Next.js, Gin, Rust/Swift, Ktor), synthetic vape research, and ECHO task completion memory notes.
+￼ Private Equity, Venture Capital & Banking Unions: Quantitative financial fund management models, capital segregation frameworks (Relay Financial sub-accounts), and banking union research backed by clean, well-respected empirical data sources.
+￼ Hugging Face Models & Forecasting: Integration of open-source models, predictive econometric forecasting, and experimental data pipelines for future research validation.
