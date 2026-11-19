@@ -1,0 +1,12 @@
+Date,Payee,Account #,Transaction Type,Description,Reference,Status,Amount,Currency,Balance
+8/31/2026,02 Tax,6865,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-25.00,USD,0.00
+8/31/2026,03 Profit,6872,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-5.00,USD,25.00
+8/31/2026,06 Operating Expenses,6888,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-70.00,USD,30.00
+8/26/2026,CAPITAL ONE,,Receive,,"CAPITAL ONE  |  TRANSFER |  RT0ABE2C639D43D",SETTLED,+100.00,USD,100.00
+8/17/2026,02 Tax,6865,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-25.00,USD,0.00
+8/17/2026,03 Profit,6872,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-5.00,USD,25.00
+8/17/2026,06 Operating Expenses,6888,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-70.00,USD,30.00
+8/12/2026,CAPITAL ONE,,Receive,,"CAPITAL ONE  |  TRANSFER |  RT01BCA74ABAEB0",SETTLED,+100.00,USD,100.00
+8/3/2026,02 Tax,6865,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-25.00,USD,0.00
+8/3/2026,03 Profit,6872,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-5.00,USD,25.00
+8/3/2026,06 Operating Expenses,6888,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-70.00,USD,30.00

@@ -1,0 +1,5 @@
+Date,Payee,Account #,Transaction Type,Description,Reference,Status,Amount,Currency,Balance
+10/12/2026,02 Tax,6865,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-25.00,USD,0.00
+10/12/2026,03 Profit,6872,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-5.00,USD,25.00
+10/12/2026,06 Operating Expenses,6888,Spend-transfer,,"Transfer automation: Profit First Weekly Allocation",SETTLED,-70.00,USD,30.00
+10/7/2026,CAPITAL ONE,,Receive,,"CAPITAL ONE  |  TRANSFER |  RT0CC970A23A277",SETTLED,+100.00,USD,100.00
