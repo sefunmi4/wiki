@@ -416,9 +416,15 @@ Authentication is a challenge-response ceremony bound to the relying
 party's origin, so a credential registered for one domain cannot be
 used on a phishing copy of that domain. That makes passkeys
 phishing-resistant by construction, unlike passwords and one-time
-codes, which can be relayed \cite{fido2-passkeys}. Index, secondary
-source; verify against the FIDO Alliance and the W3C WebAuthn
-specification before final use. The distinction that matters for a
+codes, which can be relayed \cite{webauthn3,nist80063b4}. WebAuthn
+Level 3 became a W3C Recommendation on 25 August 2026, superseding
+Level 2 (2021); it formalises passkeys at scale, including
+backup-eligible / backup-state flags that distinguish synced from
+device-bound credentials \cite{webauthn3}. NIST SP 800-63B-4 (July
+2025) admits syncable authenticators at AAL2 but not at AAL3, which
+requires a non-exportable key --- the formal basis for preferring
+device-bound passkeys for privileged accounts \cite{nist80063b4}.
+Verified live. The distinction that matters for a
 platform is scope: passkeys authenticate a \emph{human} to a service
 through a browser or operating system. They do not replace a network
 address (an RPC URL or a contract address is a locator, not a secret,
@@ -518,7 +524,7 @@ a warning.
 
 \textbf{Use passkeys for human signing; keep a dedicated service key
 for the gateway --- Direct for the passkey standard, Analogy for the
-hybrid, \cite{fido2-passkeys,sovereign2026,nist800193}.}
+hybrid, \cite{webauthn3,nist80063b4,sovereign2026,nist800193}.}
 \emph{Improvement:} human actions on the platform --- release
 approval, quest completion, and any publish that a person authorises
 --- should be signed with a passkey (device-bound for privileged
@@ -730,9 +736,10 @@ Section \ref{sec:verification}'s improvements are directly stated by
 their sources. The labels must not be removed in the final paper.
 \item \textbf{STAMP authors and year:} not captured from the manuscript
 PDF as opened; cite by title only until verified.
-\item \textbf{Passkeys (FIDO2/WebAuthn):} read via secondary summaries
-(index) \cite{fido2-passkeys}; verify against the FIDO Alliance and
-the W3C WebAuthn specification before final use. The hybrid proposal
+\item \textbf{Passkeys (FIDO2/WebAuthn):} the WebAuthn Level 3
+Recommendation and NIST SP 800-63B-4 were verified live
+\cite{webauthn3,nist80063b4}; the FIDO Alliance overview is an index
+source \cite{fido-passkeys}. The hybrid proposal
 in Section \ref{sec:verification} --- passkeys for human signing, a
 dedicated service key for the gateway --- is the author's design
 proposal for the E-CO platform, not a sourced claim, and has not been
@@ -914,15 +921,32 @@ Biomimetic War Machines and the Cyborg Ecologies of Perpetual
 Counterinsurgency.'' Conference paper.
 \url{https://nomadit.co.uk/conference/pollen2026/paper/94200} --- index.
 
-\bibitem{fido2-passkeys} FIDO2 / WebAuthn passkeys. FIDO2 is the umbrella
-standard for WebAuthn (W3C, the browser API) and CTAP2 (FIDO Alliance,
-the authenticator protocol); a passkey is a discoverable WebAuthn
-credential whose private key never leaves the authenticator and whose
-assertion is bound to the relying party origin, making it
-phishing-resistant by construction.
-\url{https://duo.com/learn/what-is-fido2} --- index, secondary summary;
-verify against the FIDO Alliance and
-\url{https://www.w3.org/TR/webauthn/} before final use.
+\bibitem{webauthn3} W3C Web Authentication Working Group (2026). ``Web
+Authentication: An API for accessing Public Key Credentials --- Level
+3.'' W3C Recommendation, 25 August 2026.
+\url{https://www.w3.org/TR/webauthn-3/} --- verified live. Successor to
+Level 2 (8 April 2021); defines the API for strong, attested, scoped,
+public key-based credentials. FIDO2 is WebAuthn plus CTAP; a passkey is
+a discoverable WebAuthn credential.
+
+\bibitem{nist80063b4} Temoshok, D., Fenton, J.~L., Choong, Y.~Y.,
+Lefkovitz, N., Regenscheid, A., Galluzzo, R. \& Richer, J.~P. (2025).
+``Digital Identity Guidelines: Authentication and Authenticator
+Management.'' NIST Special Publication SP 800-63B-4, July 2025. DOI:
+10.6028/NIST.SP.800-63B-4.
+\url{https://csrc.nist.gov/pubs/sp/800/63/b/4/final} --- verified live.
+Phishing resistance requires cryptographic authentication (\S3.2.5,
+WebAuthn as the verifier-name-binding example); syncable authenticators
+are admitted at AAL2 but not at AAL3, which requires a non-exportable
+key.
+
+\bibitem{fido-passkeys} FIDO Alliance. ``Passkeys'' and ``User
+Authentication Specifications.''
+\url{https://fidoalliance.org} and
+\url{https://fidoalliance.org/specifications-overview/} --- index. FIDO
+standards use public-key cryptography to provide phishing-resistant
+authentication; every passkey is unique and bound to the online service
+domain.
 
 \end{thebibliography}
 
