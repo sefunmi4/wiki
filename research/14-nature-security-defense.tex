@@ -424,7 +424,13 @@ device-bound credentials \cite{webauthn3}. NIST SP 800-63B-4 (July
 2025) admits syncable authenticators at AAL2 but not at AAL3, which
 requires a non-exportable key --- the formal basis for preferring
 device-bound passkeys for privileged accounts \cite{nist80063b4}.
-Verified live. The distinction that matters for a
+Independent arXiv work reaches the same split: B\"uttner and Gruschka
+(ICISSP 2025) show that the security of synced passkeys is mainly
+concentrated in the passkey provider, while device-bound credentials
+keep it on the device \cite{buttner2025}; a February 2026 census of
+the top 100,000 sites found passkey adoption strongly correlated with
+site popularity and often dependent on external identity providers
+rather than native implementations \cite{bhardwaj2026}. Verified live. The distinction that matters for a
 platform is scope: passkeys authenticate a \emph{human} to a service
 through a browser or operating system. They do not replace a network
 address (an RPC URL or a contract address is a locator, not a secret,
@@ -947,6 +953,21 @@ Authentication Specifications.''
 standards use public-key cryptography to provide phishing-resistant
 authentication; every passkey is unique and bound to the online service
 domain.
+
+\bibitem{buttner2025} B\"uttner, A. \& Gruschka, N.
+``Device-Bound vs. Synced Credentials: A Comparative Evaluation of
+Passkey Authentication.'' ICISSP 2025. arXiv:2501.07380.
+\url{https://arxiv.org/html/2501.07380v1} --- verified live (arXiv
+HTML). Applies Bonneau et al.'s framework to device-bound vs synced
+passkeys; security of synced passkeys is mainly concentrated in the
+passkey provider.
+
+\bibitem{bhardwaj2026} Bhardwaj, P. \& Sastry, N. ``State of Passkey
+Authentication in the Wild: A Census of the Top 100K sites.''
+arXiv:2602.15135v2, submitted 16 Feb 2026, revised 19 Mar 2026.
+\url{https://arxiv.org/abs/2602.15135v2} --- verified live. To appear
+in PAM 2026. First large-scale census of passkey adoption across the
+top 100,000 Tranco-ranked domains.
 
 \end{thebibliography}
 
