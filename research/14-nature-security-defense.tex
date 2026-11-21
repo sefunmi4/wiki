@@ -407,6 +407,25 @@ artifact. SBOM formats are SPDX (ISO/IEC 5962) and CycloneDX (OWASP)
 \cite{sigstore-guide}. Index, secondary sources; verify against
 sigstore.dev and in-toto.io before final use.
 
+\textbf{Passkeys are FIDO2/WebAuthn credentials, not passwords.}
+A passkey is a WebAuthn credential: the authenticator (a phone,
+laptop, or hardware security key) generates a per-service
+public-private key pair, the private key never leaves the
+authenticator, and the server stores only the public key.
+Authentication is a challenge-response ceremony bound to the relying
+party's origin, so a credential registered for one domain cannot be
+used on a phishing copy of that domain. That makes passkeys
+phishing-resistant by construction, unlike passwords and one-time
+codes, which can be relayed \cite{fido2-passkeys}. Index, secondary
+source; verify against the FIDO Alliance and the W3C WebAuthn
+specification before final use. The distinction that matters for a
+platform is scope: passkeys authenticate a \emph{human} to a service
+through a browser or operating system. They do not replace a network
+address (an RPC URL or a contract address is a locator, not a secret,
+and is public by design), and they do not by themselves replace a
+\emph{service} key held by a server process that must sign when no
+human is present.
+
 \textbf{Tamper-evidence is explicitly not tamper-prevention, and cannot
 defeat a fully compromised signer.} STAMP (molecular provenance
 preprint) states this plainly: it does not claim to defeat jailbroken
@@ -496,6 +515,31 @@ device or build runner holds a key, verify a fresh challenge and
 response at publish time rather than accepting a stored ``I am
 authorised'' claim; a quote from the wrong key is a fatal mismatch, not
 a warning.
+
+\textbf{Use passkeys for human signing; keep a dedicated service key
+for the gateway --- Direct for the passkey standard, Analogy for the
+hybrid, \cite{fido2-passkeys,sovereign2026,nist800193}.}
+\emph{Improvement:} human actions on the platform --- release
+approval, quest completion, and any publish that a person authorises
+--- should be signed with a passkey (device-bound for privileged
+accounts, synced passkeys only for general use, with a registered
+second authenticator as the recovery path for device loss), so no
+shared secret is ever transmitted or stored server-side. The chain
+gateway, by contrast, is a server process that must anchor a release
+when no human is at the keyboard; it cannot complete a WebAuthn
+ceremony, so it still needs a dedicated service key delivered through
+hosting secrets, never in code or in CI. That key must be scoped to
+the one thing it may do --- call \texttt{anchorArtifact} on the World
+Registry Contract --- hold no assets, be rotatable, and have every
+anchor it makes visible in the transparency log and the indexer, so a
+compromised gateway key produces a visible bogus anchor rather than a
+silent one. Passkeys and gateway secrets are therefore complementary,
+not alternatives: passkeys remove the human shared secret, the service
+key remains the machine shared secret, and the two must never share a
+trust root. Where a publish needs both a person and the gateway,
+require both signatures (passkey approval plus gateway anchor) so
+neither alone can publish --- the quorum pattern from Section
+\ref{sec:biomimicry}, applied to signing.
 
 \textbf{State honest limitations --- Direct,
 \cite{sovereign2026,stamp}.} Sovereign Proof and STAMP both publish a
@@ -640,7 +684,9 @@ Strand & Strongest platform-relevant takeaway & Status \\
 & key must not be reachable by build steps; & \\
 & anchor Merkle roots, not raw hashes; & \\
 & verify on a schedule; fail closed; & \\
-& anchor does not prove authorship & \\
+& anchor does not prove authorship; & \\
+& passkeys for human signing; dedicated & \\
+& service key for the gateway & \\
 5. Connection & Deterministic, reproducible trust & \textbf{Direct} \\
 & scoring; evidence stays home, only a & (Sovereign Proof \\
 & 32-byte commitment leaves; & pattern) \\
@@ -684,6 +730,13 @@ Section \ref{sec:verification}'s improvements are directly stated by
 their sources. The labels must not be removed in the final paper.
 \item \textbf{STAMP authors and year:} not captured from the manuscript
 PDF as opened; cite by title only until verified.
+\item \textbf{Passkeys (FIDO2/WebAuthn):} read via secondary summaries
+(index) \cite{fido2-passkeys}; verify against the FIDO Alliance and
+the W3C WebAuthn specification before final use. The hybrid proposal
+in Section \ref{sec:verification} --- passkeys for human signing, a
+dedicated service key for the gateway --- is the author's design
+proposal for the E-CO platform, not a sourced claim, and has not been
+tested as a software supply-chain control.
 \end{itemize}
 
 \begin{thebibliography}{99}
@@ -860,6 +913,16 @@ Synthesizers.'' Manuscript PDF.
 Biomimetic War Machines and the Cyborg Ecologies of Perpetual
 Counterinsurgency.'' Conference paper.
 \url{https://nomadit.co.uk/conference/pollen2026/paper/94200} --- index.
+
+\bibitem{fido2-passkeys} FIDO2 / WebAuthn passkeys. FIDO2 is the umbrella
+standard for WebAuthn (W3C, the browser API) and CTAP2 (FIDO Alliance,
+the authenticator protocol); a passkey is a discoverable WebAuthn
+credential whose private key never leaves the authenticator and whose
+assertion is bound to the relying party origin, making it
+phishing-resistant by construction.
+\url{https://duo.com/learn/what-is-fido2} --- index, secondary summary;
+verify against the FIDO Alliance and
+\url{https://www.w3.org/TR/webauthn/} before final use.
 
 \end{thebibliography}
 
